@@ -46,7 +46,7 @@ public class MainActivity extends AppCompatActivity {
         SharedPreferences sharedPreferences = getSharedPreferences("data", MODE_PRIVATE);
         String actionBarColor = sharedPreferences.getString("ActionBarColor", "#3A3A3A");
         String statusBarColor = sharedPreferences.getString("StatusBarColor", "#3A3A3A");
-        int position = sharedPreferences.getInt("position", 0);
+        int position = sharedPreferences.getInt("MainPosition", 0);
         if (getSupportActionBar() != null) {
             getSupportActionBar().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.parseColor(actionBarColor)));
             getWindow().setStatusBarColor(android.graphics.Color.parseColor(statusBarColor));

@@ -64,12 +64,14 @@ public class ColorAdapter extends RecyclerView.Adapter<ColorAdapter.ViewHolder> 
                 Color newColor = new Color(color.getName(), color.getPinyin(), color.getHex());
                 //保存到litepal数据库
                 if (!LitePal.isExist(Color.class, "name = '" + color.getName() + "'")) {
-                    //?此处存疑，是否正确保存到数据库中？收藏活动中未能正确加载数据？
-                    //此处保存有问题
-                    //因为已经调用过一次的对象被认为已经存储过，不会再次存储
-                    //导致第二次存储失败
-//                    color.save();
-                    //测试修复
+                    /*
+                    ?此处存疑，是否正确保存到数据库中？收藏活动中未能正确加载数据？
+                    此处保存有问题
+                    因为已经调用过一次的对象被认为已经存储过，不会再次存储
+                    导致第二次存储失败
+                    color.save();
+                     */
+                    //将原color复制一份到newColor，然后保存，解决同一color删除后无法再次保存的问题
                     newColor.save();
                     Toast.makeText(v.getContext(), "已收藏此颜色", Toast.LENGTH_SHORT).show();
                 } else {
@@ -135,7 +137,7 @@ public class ColorAdapter extends RecyclerView.Adapter<ColorAdapter.ViewHolder> 
             SharedPreferences.Editor editor = sharedPreferences.edit();
             editor.putString("ActionBarColor", hex);
             editor.putString("StatusBarColor", hex);
-            editor.putInt("position", position);
+            editor.putInt("MainPosition", position);
             editor.apply();
             mainActivity.getSupportActionBar().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.parseColor(hex)));
             mainActivity.getWindow().setStatusBarColor(android.graphics.Color.parseColor(hex));

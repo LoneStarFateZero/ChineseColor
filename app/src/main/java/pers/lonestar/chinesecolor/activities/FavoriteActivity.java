@@ -41,11 +41,13 @@ public class FavoriteActivity extends AppCompatActivity {
         SharedPreferences sharedPreferences = getSharedPreferences("data", MODE_PRIVATE);
         String actionBarColor = sharedPreferences.getString("ActionBarColor", "#3A3A3A");
         String statusBarColor = sharedPreferences.getString("StatusBarColor", "#3A3A3A");
+        int position = sharedPreferences.getInt("FavoritePosition", 0);
         if (getSupportActionBar() != null) {
             getSupportActionBar().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.parseColor(actionBarColor)));
             getSupportActionBar().setTitle("收藏");
             getWindow().setStatusBarColor(android.graphics.Color.parseColor(statusBarColor));
         }
+        recyclerView.scrollToPosition(position);
     }
 
     //加载颜色
