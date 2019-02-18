@@ -60,6 +60,10 @@ public class FavoriteColorAdapter extends RecyclerView.Adapter<FavoriteColorAdap
                 Color color = colorList.get(position);
                 //从litepal数据库中删除
                 color.delete();
+                //从滚动布局中删除
+                YoYo.with(Techniques.ZoomOut).duration(400).playOn(v);
+                colorList.remove(color);
+                notifyItemRemoved(position);
                 Toast.makeText(v.getContext(), "已移除此颜色", Toast.LENGTH_SHORT).show();
                 return true;
             }
