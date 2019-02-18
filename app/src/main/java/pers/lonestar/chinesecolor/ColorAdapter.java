@@ -11,6 +11,9 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.daimajia.androidanimations.library.Techniques;
+import com.daimajia.androidanimations.library.YoYo;
+
 import java.util.List;
 
 import androidx.annotation.NonNull;
@@ -23,7 +26,7 @@ public class ColorAdapter extends RecyclerView.Adapter<ColorAdapter.ViewHolder> 
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.color_item, parent, false);
+        final View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.color_item, parent, false);
         final ViewHolder holder = new ViewHolder(view);
         //子项点击监听事件
         holder.colorView.setOnClickListener(new View.OnClickListener() {
@@ -38,7 +41,10 @@ public class ColorAdapter extends RecyclerView.Adapter<ColorAdapter.ViewHolder> 
                 clipboardManager.setPrimaryClip(clipData);
                 Toast.makeText(v.getContext(), "已复制" + color.getHex(), Toast.LENGTH_SHORT).show();
 
+                //改变主题颜色
                 changWindowColor(color.getHex(), position);
+                //点击动画效果
+                YoYo.with(Techniques.Bounce).duration(1000).playOn(view);
             }
         });
         return holder;
@@ -47,6 +53,8 @@ public class ColorAdapter extends RecyclerView.Adapter<ColorAdapter.ViewHolder> 
     //子项滚到屏幕中时会得到执行
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
+        YoYo.with(Techniques.ZoomIn).duration(400).playOn(holder.colorView);
+
         Color color = colorList.get(position);
         holder.name.setText(color.getName());
         holder.pinyin.setText(color.getPinyin());
