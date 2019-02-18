@@ -54,6 +54,7 @@ public class MainActivity extends AppCompatActivity {
         recyclerView.scrollToPosition(position);
     }
 
+    //加载颜色
     public void initColor() {
         Gson gson = new Gson();
         try (InputStream inputStream = this.getAssets().open("colors.json")
@@ -90,5 +91,11 @@ public class MainActivity extends AppCompatActivity {
                 break;
         }
         return true;
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        initWindowColor();
     }
 }

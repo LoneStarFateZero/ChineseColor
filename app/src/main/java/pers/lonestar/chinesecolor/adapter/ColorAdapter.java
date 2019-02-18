@@ -39,7 +39,7 @@ public class ColorAdapter extends RecyclerView.Adapter<ColorAdapter.ViewHolder> 
             @Override
             public void onClick(View v) {
                 //点击动画效果
-                YoYo.with(Techniques.Bounce).duration(1000).playOn(view);
+                YoYo.with(Techniques.Bounce).duration(700).playOn(view);
 
                 int position = holder.getAdapterPosition();
                 Color color = colorList.get(position);
@@ -58,11 +58,19 @@ public class ColorAdapter extends RecyclerView.Adapter<ColorAdapter.ViewHolder> 
         holder.colorView.setOnLongClickListener(new View.OnLongClickListener() {
             @Override
             public boolean onLongClick(View v) {
+                YoYo.with(Techniques.Pulse).duration(700).playOn(view);
                 int position = holder.getAdapterPosition();
                 Color color = colorList.get(position);
+                Color newColor = new Color(color.getName(), color.getPinyin(), color.getHex());
                 //保存到litepal数据库
                 if (!LitePal.isExist(Color.class, "name = '" + color.getName() + "'")) {
-                    color.save();
+                    //?此处存疑，是否正确保存到数据库中？收藏活动中未能正确加载数据？
+                    //此处保存有问题
+                    //因为已经调用过一次的对象被认为已经存储过，不会再次存储
+                    //导致第二次存储失败
+//                    color.save();
+                    //测试修复
+                    newColor.save();
                     Toast.makeText(v.getContext(), "已收藏此颜色", Toast.LENGTH_SHORT).show();
                 } else {
                     Toast.makeText(v.getContext(), "此颜色已在收藏列表", Toast.LENGTH_SHORT).show();

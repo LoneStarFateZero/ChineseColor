@@ -7,6 +7,11 @@ public class Color extends LitePalSupport {
     private String hex;
     private String pinyin;
 
+    @Override
+    public boolean isSaved() {
+        return super.isSaved();
+    }
+
     public String getName() {
         return name;
     }
