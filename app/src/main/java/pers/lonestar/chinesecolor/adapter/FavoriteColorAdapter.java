@@ -102,7 +102,7 @@ public class FavoriteColorAdapter extends RecyclerView.Adapter<FavoriteColorAdap
         private TextView green;
         private TextView blue;
 
-        public ViewHolder(@NonNull View itemView) {
+        ViewHolder(@NonNull View itemView) {
             super(itemView);
             colorView = itemView;
             name = itemView.findViewById(R.id.name);

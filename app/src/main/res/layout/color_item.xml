@@ -29,28 +29,28 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="2dp"
-            android:text="颜色值" />
+            android:text="@string/color_hex" />
 
         <TextView
             android:id="@+id/red"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="2dp"
-            android:text="RED" />
+            android:text="@string/color_Red" />
 
         <TextView
             android:id="@+id/green"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="2dp"
-            android:text="GREEN" />
+            android:text="@string/color_Green" />
 
         <TextView
             android:id="@+id/blue"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="2dp"
-            android:text="BLUE" />
+            android:text="@string/color_Blue" />
     </LinearLayout>
 
     <LinearLayout
@@ -68,7 +68,7 @@
             android:layout_height="wrap_content"
             android:layout_marginBottom="4dp"
             android:fontFamily="@font/myfont"
-            android:text="拼音"
+            android:text="@string/color_pinyin"
             android:textDirection="rtl"
             android:textSize="20sp" />
 
@@ -77,7 +77,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:fontFamily="@font/myfont"
-            android:text="颜色名"
+            android:text="@string/color_name"
             android:textDirection="rtl"
             android:textSize="40sp" />
     </LinearLayout>
