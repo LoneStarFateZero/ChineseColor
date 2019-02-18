@@ -15,9 +15,9 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
-        <activity android:name=".AboutActivity"></activity>
-        <activity android:name=".FavoriteActivity" />
-        <activity android:name=".MainActivity">
+        <activity android:name=".activities.AboutActivity"></activity>
+        <activity android:name=".activities.FavoriteActivity" />
+        <activity android:name=".activities.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

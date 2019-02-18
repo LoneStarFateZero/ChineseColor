@@ -1,12 +1,11 @@
-package pers.lonestar.chinesecolor;
+package pers.lonestar.chinesecolor.colorclass;
 
-public class Color {
+import org.litepal.crud.LitePalSupport;
+
+public class Color extends LitePalSupport {
     private String name;
     private String hex;
     private String pinyin;
-    private int red;
-    private int green;
-    private int blue;
 
     public String getName() {
         return name;
@@ -14,18 +13,6 @@ public class Color {
 
     public String getHex() {
         return hex;
-    }
-
-    public int getRed() {
-        return red;
-    }
-
-    public int getGreen() {
-        return green;
-    }
-
-    public int getBlue() {
-        return blue;
     }
 
     public String getPinyin() {
@@ -40,10 +27,6 @@ public class Color {
         this.name = name;
         this.pinyin = pinyin;
         this.hex = hex;
-        int color = android.graphics.Color.parseColor(hex);
-        this.red = (color & 0xff0000) >> 16;
-        this.green = (color & 0x00ff00) >> 8;
-        this.blue = (color & 0x0000ff);
     }
 
 }

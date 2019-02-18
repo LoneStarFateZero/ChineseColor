@@ -1,4 +1,4 @@
-package pers.lonestar.chinesecolor;
+package pers.lonestar.chinesecolor.adapter;
 
 import android.content.ClipData;
 import android.content.ClipboardManager;
@@ -15,10 +15,15 @@ import android.widget.Toast;
 import com.daimajia.androidanimations.library.Techniques;
 import com.daimajia.androidanimations.library.YoYo;
 
+import org.litepal.LitePal;
+
 import java.util.List;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
+import pers.lonestar.chinesecolor.R;
+import pers.lonestar.chinesecolor.activities.MainActivity;
+import pers.lonestar.chinesecolor.colorclass.Color;
 
 public class ColorAdapter extends RecyclerView.Adapter<ColorAdapter.ViewHolder> {
     private List<Color> colorList;
@@ -33,6 +38,9 @@ public class ColorAdapter extends RecyclerView.Adapter<ColorAdapter.ViewHolder> 
         holder.colorView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                //点击动画效果
+                YoYo.with(Techniques.Bounce).duration(1000).playOn(view);
+
                 int position = holder.getAdapterPosition();
                 Color color = colorList.get(position);
 
@@ -43,16 +51,22 @@ public class ColorAdapter extends RecyclerView.Adapter<ColorAdapter.ViewHolder> 
                 Toast.makeText(v.getContext(), "已复制" + color.getHex(), Toast.LENGTH_SHORT).show();
 
                 //改变主题颜色
-                changWindowColor(color.getHex(), position);
-                //点击动画效果
-                YoYo.with(Techniques.Bounce).duration(1000).playOn(view);
+                changWindowColor(color.getName(), color.getHex(), position);
             }
         });
         //子项长点击监听事件
         holder.colorView.setOnLongClickListener(new View.OnLongClickListener() {
             @Override
             public boolean onLongClick(View v) {
-                Toast.makeText(v.getContext(), "准备收藏此颜色", Toast.LENGTH_SHORT).show();
+                int position = holder.getAdapterPosition();
+                Color color = colorList.get(position);
+                //保存到litepal数据库
+                if (!LitePal.isExist(Color.class, "name = '" + color.getName() + "'")) {
+                    color.save();
+                    Toast.makeText(v.getContext(), "已收藏此颜色", Toast.LENGTH_SHORT).show();
+                } else {
+                    Toast.makeText(v.getContext(), "此颜色已在收藏列表", Toast.LENGTH_SHORT).show();
+                }
                 return true;
             }
         });
@@ -68,9 +82,10 @@ public class ColorAdapter extends RecyclerView.Adapter<ColorAdapter.ViewHolder> 
         holder.name.setText(color.getName());
         holder.pinyin.setText(color.getPinyin());
         holder.hex.setText(color.getHex());
-        holder.red.setText("R: " + color.getRed());
-        holder.green.setText("G: " + color.getGreen());
-        holder.blue.setText("B: " + color.getBlue());
+        int colorValue = android.graphics.Color.parseColor(color.getHex());
+        holder.red.setText("R: " + ((colorValue & 0xff0000) >> 16));
+        holder.green.setText("G: " + ((colorValue & 0x00ff00) >> 8));
+        holder.blue.setText("B: " + (colorValue & 0x0000ff));
         //此处取交集绘制，原底部负责绘制圆角，新层负责绘制颜色，达到绘制有颜色的圆角矩形的布局效果
         holder.colorView.getBackground().setColorFilter(android.graphics.Color.parseColor(color.getHex()), PorterDuff.Mode.SRC_IN);
     }
@@ -106,7 +121,7 @@ public class ColorAdapter extends RecyclerView.Adapter<ColorAdapter.ViewHolder> 
         this.mainActivity = mainActivity;
     }
 
-    private void changWindowColor(String hex, int position) {
+    private void changWindowColor(String name, String hex, int position) {
         if (mainActivity.getSupportActionBar() != null) {
             SharedPreferences sharedPreferences = mainActivity.getSharedPreferences("data", Context.MODE_PRIVATE);
             SharedPreferences.Editor editor = sharedPreferences.edit();
@@ -116,6 +131,7 @@ public class ColorAdapter extends RecyclerView.Adapter<ColorAdapter.ViewHolder> 
             editor.apply();
             mainActivity.getSupportActionBar().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.parseColor(hex)));
             mainActivity.getWindow().setStatusBarColor(android.graphics.Color.parseColor(hex));
+            mainActivity.getSupportActionBar().setTitle(name);
         }
     }
 }

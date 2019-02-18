@@ -1,4 +1,4 @@
-package pers.lonestar.chinesecolor;
+package pers.lonestar.chinesecolor.activities;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -19,6 +19,10 @@ import java.util.List;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import pers.lonestar.chinesecolor.R;
+import pers.lonestar.chinesecolor.adapter.ColorAdapter;
+import pers.lonestar.chinesecolor.colorclass.Color;
+import pers.lonestar.chinesecolor.colorclass.jsonColor;
 
 public class MainActivity extends AppCompatActivity {
     private List<Color> colorList = new ArrayList<>();

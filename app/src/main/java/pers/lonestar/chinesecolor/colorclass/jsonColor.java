@@ -1,4 +1,4 @@
-package pers.lonestar.chinesecolor;
+package pers.lonestar.chinesecolor.colorclass;
 
 public class jsonColor {
     private int[] CMYK;
