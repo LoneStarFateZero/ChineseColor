@@ -29,7 +29,7 @@ public class ColorAdapter extends RecyclerView.Adapter<ColorAdapter.ViewHolder> 
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         final View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.color_item, parent, false);
         final ViewHolder holder = new ViewHolder(view);
-        //子项点击监听事件
+        //子项短点击监听事件
         holder.colorView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -46,6 +46,14 @@ public class ColorAdapter extends RecyclerView.Adapter<ColorAdapter.ViewHolder> 
                 changWindowColor(color.getHex(), position);
                 //点击动画效果
                 YoYo.with(Techniques.Bounce).duration(1000).playOn(view);
+            }
+        });
+        //子项长点击监听事件
+        holder.colorView.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View v) {
+                Toast.makeText(v.getContext(), "准备收藏此颜色", Toast.LENGTH_SHORT).show();
+                return true;
             }
         });
         return holder;

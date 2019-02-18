@@ -6,7 +6,7 @@
     android:layout_marginTop="10dp"
     android:layout_marginRight="10dp"
     android:layout_marginBottom="10dp"
-    android:background="@drawable/item_layout"
+    android:background="@drawable/rounded_background"
     android:backgroundTintMode="src_in"
     android:baselineAligned="false"
     android:clickable="true"
