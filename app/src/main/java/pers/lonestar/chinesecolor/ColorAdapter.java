@@ -4,6 +4,7 @@ import android.content.ClipData;
 import android.content.ClipboardManager;
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.graphics.PorterDuff;
 import android.graphics.drawable.ColorDrawable;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -62,7 +63,8 @@ public class ColorAdapter extends RecyclerView.Adapter<ColorAdapter.ViewHolder> 
         holder.red.setText("R: " + color.getRed());
         holder.green.setText("G: " + color.getGreen());
         holder.blue.setText("B: " + color.getBlue());
-        holder.colorView.setBackground(new ColorDrawable(android.graphics.Color.parseColor(color.getHex())));
+        //此处取交集绘制，原底部负责绘制圆角，新层负责绘制颜色，达到绘制有颜色的圆角矩形的布局效果
+        holder.colorView.getBackground().setColorFilter(android.graphics.Color.parseColor(color.getHex()), PorterDuff.Mode.SRC_IN);
     }
 
     @Override

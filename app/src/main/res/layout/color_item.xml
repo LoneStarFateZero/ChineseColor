@@ -4,6 +4,8 @@
     android:layout_height="wrap_content"
     android:layout_marginTop="10dp"
     android:layout_marginBottom="10dp"
+    android:background="@drawable/item_layout"
+    android:backgroundTintMode="src_in"
     android:baselineAligned="false"
     android:clickable="true"
     android:elevation="5dp"
