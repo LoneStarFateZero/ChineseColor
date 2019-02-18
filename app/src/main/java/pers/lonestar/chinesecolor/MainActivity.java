@@ -38,11 +38,12 @@ public class MainActivity extends AppCompatActivity {
 
     public void initWindowColor() {
         SharedPreferences sharedPreferences = getSharedPreferences("data", MODE_PRIVATE);
-        String color = sharedPreferences.getString("initcolor", "#3A3A3A");
+        String actionBarColor = sharedPreferences.getString("ActionBarColor", "#3A3A3A");
+        String statusBarColor = sharedPreferences.getString("StatusBarColor", "#3A3A3A");
         int position = sharedPreferences.getInt("position", 0);
         if (getSupportActionBar() != null) {
-            getSupportActionBar().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.parseColor(color)));
-            getWindow().setStatusBarColor(android.graphics.Color.parseColor(color));
+            getSupportActionBar().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.parseColor(actionBarColor)));
+            getWindow().setStatusBarColor(android.graphics.Color.parseColor(statusBarColor));
         }
         recyclerView.scrollToPosition(position);
     }

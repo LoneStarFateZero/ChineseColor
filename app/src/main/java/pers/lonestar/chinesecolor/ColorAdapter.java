@@ -92,7 +92,8 @@ public class ColorAdapter extends RecyclerView.Adapter<ColorAdapter.ViewHolder> 
         if (mainActivity.getSupportActionBar() != null) {
             SharedPreferences sharedPreferences = mainActivity.getSharedPreferences("data", Context.MODE_PRIVATE);
             SharedPreferences.Editor editor = sharedPreferences.edit();
-            editor.putString("initcolor", hex);
+            editor.putString("ActionBarColor", hex);
+            editor.putString("StatusBarColor", hex);
             editor.putInt("position", position);
             editor.apply();
             mainActivity.getSupportActionBar().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.parseColor(hex)));
