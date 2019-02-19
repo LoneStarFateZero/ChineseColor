@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="300dp"
+    android:layout_height="wrap_content"
+    android:layout_marginStart="50dp"
+    android:layout_marginEnd="50dp"
+    android:background="@drawable/rounded_background"
+    android:backgroundTintMode="src_in"
+    android:baselineAligned="false"
+    android:clickable="true"
+    android:elevation="5dp"
+    android:focusable="true"
+    android:foreground="?android:attr/selectableItemBackground"
+    android:orientation="vertical"
+    android:padding="10dp">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="35dp"
+        android:fontFamily="@font/myfont"
+        android:gravity="center_horizontal"
+        android:text="是否删除全部收藏颜色？"
+        android:textSize="20sp" />
+</LinearLayout>

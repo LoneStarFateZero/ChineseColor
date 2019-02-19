@@ -1,6 +1,5 @@
 package pers.lonestar.chinesecolor.activities;
 
-import android.content.DialogInterface;
 import android.content.SharedPreferences;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
@@ -11,16 +10,15 @@ import org.litepal.LitePal;
 
 import java.util.List;
 
-import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import pers.lonestar.chinesecolor.R;
 import pers.lonestar.chinesecolor.adapter.FavoriteColorAdapter;
 import pers.lonestar.chinesecolor.colorclass.Color;
+import pers.lonestar.chinesecolor.dialog.MyDialogFragment;
 
-public class FavoriteActivity extends AppCompatActivity {
-    private static final String TAG = "FavoriteActivity";
+public class FavoriteActivity extends AppCompatActivity implements MyDialogFragment.ConfirmListener {
     private List<Color> colorList;
     private RecyclerView recyclerView;
 
@@ -65,36 +63,28 @@ public class FavoriteActivity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
-            case R.id.clear:
-                AlertDialog.Builder dialog = new AlertDialog.Builder(this);
-                dialog.setMessage("是否删除全部收藏颜色？");
-                dialog.setCancelable(true);
-                dialog.setPositiveButton("确认", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        RecyclerView.Adapter adapter;
-                        if ((adapter = recyclerView.getAdapter()) != null) {
-                            for (int i = 0; i < colorList.size(); i++) {
-                                /*
-                                 之前的异常是因为
-                                 adapter.notifyItemRemoved(i);
-                                  会越界
-                                  类似堆栈不断弹出顶部，保持position为0就可以
-                                  顶部position始终为0
-                                 */
-                                adapter.notifyItemRemoved(0);
-                            }
-                        }
-                        for (Color color : colorList) {
-                            color.delete();
-                        }
-                        colorList.clear();
-                    }
-                });
-                dialog.setNegativeButton("取消", null);
-                dialog.show();
+            case R.id.delete:
+                MyDialogFragment dialogFragment = new MyDialogFragment();
+                dialogFragment.show(getSupportFragmentManager(), "MyDialog");
                 break;
         }
         return true;
+    }
+
+
+    @Override
+    public void confirmDelete() {
+        if (recyclerView.getAdapter() != null) {
+            for (int i = 0; i < colorList.size(); i++) {
+                /*之前的异常是因为adapter.notifyItemRemoved(i);
+                会越界，类似堆栈不断弹出顶部，
+                保持position为0就可以顶部position始终为0*/
+                recyclerView.getAdapter().notifyItemRemoved(0);
+            }
+        }
+        for (Color color : colorList) {
+            color.delete();
+        }
+        colorList.clear();
     }
 }
