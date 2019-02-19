@@ -5,6 +5,7 @@ import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Toast;
 
 import org.litepal.LitePal;
 
@@ -86,5 +87,6 @@ public class FavoriteActivity extends AppCompatActivity implements MyDialogFragm
             color.delete();
         }
         colorList.clear();
+        Toast.makeText(this, "已移除全部收藏颜色", Toast.LENGTH_SHORT).show();
     }
 }
