@@ -167,7 +167,6 @@ public class FavoriteColorAdapter extends RecyclerView.Adapter<FavoriteColorAdap
             editor.apply();
             favoriteActivity.getSupportActionBar().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.parseColor(hex)));
             favoriteActivity.getWindow().setStatusBarColor(android.graphics.Color.parseColor(hex));
-            favoriteActivity.getSupportActionBar().setTitle(name);
         }
     }
 }

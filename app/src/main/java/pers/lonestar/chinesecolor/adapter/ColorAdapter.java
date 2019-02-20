@@ -179,7 +179,6 @@ public class ColorAdapter extends RecyclerView.Adapter<ColorAdapter.ViewHolder> 
             editor.apply();
             mainActivity.getSupportActionBar().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.parseColor(hex)));
             mainActivity.getWindow().setStatusBarColor(android.graphics.Color.parseColor(hex));
-            mainActivity.getSupportActionBar().setTitle(name);
         }
     }
 }
