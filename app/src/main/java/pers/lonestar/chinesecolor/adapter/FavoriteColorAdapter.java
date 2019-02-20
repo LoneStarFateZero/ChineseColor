@@ -21,10 +21,10 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 import pers.lonestar.chinesecolor.R;
 import pers.lonestar.chinesecolor.activities.FavoriteActivity;
-import pers.lonestar.chinesecolor.colorclass.Color;
+import pers.lonestar.chinesecolor.colorclass.FavoriteColor;
 
 public class FavoriteColorAdapter extends RecyclerView.Adapter<FavoriteColorAdapter.ViewHolder> {
-    private List<Color> colorList;
+    private List<FavoriteColor> colorList;
     private FavoriteActivity favoriteActivity;
 
     @NonNull
@@ -40,7 +40,7 @@ public class FavoriteColorAdapter extends RecyclerView.Adapter<FavoriteColorAdap
                 YoYo.with(Techniques.Bounce).duration(1000).playOn(view);
 
                 int position = holder.getAdapterPosition();
-                Color color = colorList.get(position);
+                FavoriteColor color = colorList.get(position);
 
                 //将复制的颜色的十六进制值复制到剪贴板
                 ClipboardManager clipboardManager = (ClipboardManager) v.getContext().getSystemService(Context.CLIPBOARD_SERVICE);
@@ -57,7 +57,7 @@ public class FavoriteColorAdapter extends RecyclerView.Adapter<FavoriteColorAdap
             @Override
             public boolean onLongClick(View v) {
                 int position = holder.getAdapterPosition();
-                Color color = colorList.get(position);
+                FavoriteColor color = colorList.get(position);
                 //从litepal数据库中删除
                 color.delete();
                 //从滚动布局中删除
@@ -76,7 +76,7 @@ public class FavoriteColorAdapter extends RecyclerView.Adapter<FavoriteColorAdap
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         YoYo.with(Techniques.ZoomIn).duration(400).playOn(holder.colorView);
 
-        Color color = colorList.get(position);
+        FavoriteColor color = colorList.get(position);
         holder.name.setText(color.getName());
         holder.pinyin.setText(color.getPinyin());
         holder.hex.setText(color.getHex());
@@ -114,7 +114,7 @@ public class FavoriteColorAdapter extends RecyclerView.Adapter<FavoriteColorAdap
         }
     }
 
-    public FavoriteColorAdapter(List<Color> colorList, FavoriteActivity favoriteActivity) {
+    public FavoriteColorAdapter(List<FavoriteColor> colorList, FavoriteActivity favoriteActivity) {
         this.colorList = colorList;
         this.favoriteActivity = favoriteActivity;
     }

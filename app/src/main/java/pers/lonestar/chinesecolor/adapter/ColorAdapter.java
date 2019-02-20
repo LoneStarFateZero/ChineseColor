@@ -23,10 +23,11 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 import pers.lonestar.chinesecolor.R;
 import pers.lonestar.chinesecolor.activities.MainActivity;
-import pers.lonestar.chinesecolor.colorclass.Color;
+import pers.lonestar.chinesecolor.colorclass.FavoriteColor;
+import pers.lonestar.chinesecolor.colorclass.LitePalColor;
 
 public class ColorAdapter extends RecyclerView.Adapter<ColorAdapter.ViewHolder> {
-    private List<Color> colorList;
+    private List<LitePalColor> colorList;
     private MainActivity mainActivity;
 
     @NonNull
@@ -42,7 +43,7 @@ public class ColorAdapter extends RecyclerView.Adapter<ColorAdapter.ViewHolder> 
                 YoYo.with(Techniques.Bounce).duration(700).playOn(view);
 
                 int position = holder.getAdapterPosition();
-                Color color = colorList.get(position);
+                LitePalColor color = colorList.get(position);
 
                 //将复制的颜色的十六进制值复制到剪贴板
                 ClipboardManager clipboardManager = (ClipboardManager) v.getContext().getSystemService(Context.CLIPBOARD_SERVICE);
@@ -60,10 +61,10 @@ public class ColorAdapter extends RecyclerView.Adapter<ColorAdapter.ViewHolder> 
             public boolean onLongClick(View v) {
                 YoYo.with(Techniques.Pulse).duration(700).playOn(view);
                 int position = holder.getAdapterPosition();
-                Color color = colorList.get(position);
-                Color newColor = new Color(color.getName(), color.getPinyin(), color.getHex());
+                LitePalColor color = colorList.get(position);
+                FavoriteColor newColor = new FavoriteColor(color.getName(), color.getPinyin(), color.getHex());
                 //保存到litepal数据库
-                if (!LitePal.isExist(Color.class, "name = '" + color.getName() + "'")) {
+                if (!LitePal.isExist(FavoriteColor.class, "name = '" + color.getName() + "'")) {
                     /*
                     ?此处存疑，是否正确保存到数据库中？收藏活动中未能正确加载数据？
                     此处保存有问题
@@ -88,7 +89,7 @@ public class ColorAdapter extends RecyclerView.Adapter<ColorAdapter.ViewHolder> 
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         YoYo.with(Techniques.ZoomIn).duration(400).playOn(holder.colorView);
 
-        Color color = colorList.get(position);
+        LitePalColor color = colorList.get(position);
         holder.name.setText(color.getName());
         holder.pinyin.setText(color.getPinyin());
         holder.hex.setText(color.getHex());
@@ -126,7 +127,7 @@ public class ColorAdapter extends RecyclerView.Adapter<ColorAdapter.ViewHolder> 
         }
     }
 
-    public ColorAdapter(List<Color> colorList, MainActivity mainActivity) {
+    public ColorAdapter(List<LitePalColor> colorList, MainActivity mainActivity) {
         this.colorList = colorList;
         this.mainActivity = mainActivity;
     }

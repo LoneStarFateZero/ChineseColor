@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <litepal>
-    <dbname value="ColorStore"></dbname>
-    <version value="1"></version>
+    <dbname value="ColorStore" />
+    <version value="1" />
     <list>
-        <mapping class="pers.lonestar.chinesecolor.colorclass.Color"></mapping>
+        <mapping class="pers.lonestar.chinesecolor.colorclass.FavoriteColor" />
+        <mapping class="pers.lonestar.chinesecolor.colorclass.LitePalColor" />
     </list>
 </litepal>

@@ -4,11 +4,14 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
+
+import org.litepal.LitePal;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -21,11 +24,11 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import pers.lonestar.chinesecolor.R;
 import pers.lonestar.chinesecolor.adapter.ColorAdapter;
-import pers.lonestar.chinesecolor.colorclass.Color;
+import pers.lonestar.chinesecolor.colorclass.LitePalColor;
 import pers.lonestar.chinesecolor.colorclass.jsonColor;
 
 public class MainActivity extends AppCompatActivity {
-    private List<Color> colorList = new ArrayList<>();
+    private List<LitePalColor> colorList = new ArrayList<>();
     private RecyclerView recyclerView;
 
     @Override
@@ -56,17 +59,26 @@ public class MainActivity extends AppCompatActivity {
 
     //加载颜色
     public void initColor() {
-        Gson gson = new Gson();
-        try (InputStream inputStream = this.getAssets().open("colors.json")
-        ) {
-            List<jsonColor> jsonColorList = gson.fromJson(new InputStreamReader(inputStream), new TypeToken<List<jsonColor>>() {
-            }.getType());
-            for (jsonColor jsonColor : jsonColorList) {
-                Color color = new Color(jsonColor.getName(), jsonColor.getPinyin(), jsonColor.getHex().toUpperCase());
-                colorList.add(color);
+        //第一次启动从json文件中加载颜色，将数据通过LitePal保存到数据库中，后续打开从数据库中加载保证打开速度
+        colorList = LitePal.findAll(LitePalColor.class);
+        //若数据库中无缓存颜色数据，则从json中加载
+        if (colorList.isEmpty()) {
+            Log.d("MainActivity", "initColor: 从json文件中加载");
+            Gson gson = new Gson();
+            try (InputStream inputStream = this.getAssets().open("colors.json")
+            ) {
+                List<jsonColor> jsonColorList = gson.fromJson(new InputStreamReader(inputStream), new TypeToken<List<jsonColor>>() {
+                }.getType());
+                for (jsonColor jsonColor : jsonColorList) {
+                    LitePalColor color = new LitePalColor(jsonColor.getName(), jsonColor.getPinyin(), jsonColor.getHex().toUpperCase());
+                    color.save();
+                    colorList.add(color);
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
             }
-        } catch (IOException e) {
-            e.printStackTrace();
+        } else {
+            Log.d("MainActivity", "initColor: 从数据库中加载");
         }
     }
 

@@ -16,11 +16,11 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import pers.lonestar.chinesecolor.R;
 import pers.lonestar.chinesecolor.adapter.FavoriteColorAdapter;
-import pers.lonestar.chinesecolor.colorclass.Color;
+import pers.lonestar.chinesecolor.colorclass.FavoriteColor;
 import pers.lonestar.chinesecolor.dialog.MyDialogFragment;
 
 public class FavoriteActivity extends AppCompatActivity implements MyDialogFragment.ConfirmListener {
-    private List<Color> colorList;
+    private List<FavoriteColor> colorList;
     private RecyclerView recyclerView;
 
     @Override
@@ -50,9 +50,8 @@ public class FavoriteActivity extends AppCompatActivity implements MyDialogFragm
     }
 
     //加载颜色
-    //此处加载的库数据为空
     public void initColor() {
-        colorList = LitePal.findAll(Color.class);
+        colorList = LitePal.findAll(FavoriteColor.class);
     }
 
     @Override
@@ -83,7 +82,7 @@ public class FavoriteActivity extends AppCompatActivity implements MyDialogFragm
                 recyclerView.getAdapter().notifyItemRemoved(0);
             }
         }
-        for (Color color : colorList) {
+        for (FavoriteColor color : colorList) {
             color.delete();
         }
         colorList.clear();
