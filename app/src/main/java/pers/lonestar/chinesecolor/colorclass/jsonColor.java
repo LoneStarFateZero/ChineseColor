@@ -1,5 +1,9 @@
 package pers.lonestar.chinesecolor.colorclass;
 
+/**
+ * 用于gson提取color.json文件中的颜色
+ * 第一次启动加载颜色列表时使用
+ */
 public class jsonColor {
     private int[] CMYK;
 

@@ -20,7 +20,7 @@
         android:layout_marginTop="20dp"
         android:fontFamily="@font/myfont"
         android:gravity="center_horizontal"
-        android:text="是否删除全部收藏颜色？"
+        android:text="@string/delete_message"
         android:textSize="20sp" />
 
     <LinearLayout
@@ -41,7 +41,7 @@
             android:elevation="10dp"
             android:focusable="true"
             android:fontFamily="@font/myfont"
-            android:text="取消"
+            android:text="@string/delete_cancel"
             android:textSize="20sp" />
 
         <Button
@@ -57,7 +57,7 @@
             android:elevation="10dp"
             android:focusable="true"
             android:fontFamily="@font/myfont"
-            android:text="确认"
+            android:text="@string/delete_approve"
             android:textSize="20sp" />
 
     </LinearLayout>

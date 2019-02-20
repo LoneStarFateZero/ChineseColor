@@ -2,6 +2,10 @@ package pers.lonestar.chinesecolor.colorclass;
 
 import org.litepal.crud.LitePalSupport;
 
+/**
+ * 保存从color.json文件中加载得到的颜色，借助LitePal使用
+ * 每项须有对应的setter和getter
+ */
 public class LitePalColor extends LitePalSupport {
     private String name;
     private String hex;

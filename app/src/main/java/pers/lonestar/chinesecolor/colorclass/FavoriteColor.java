@@ -2,6 +2,10 @@ package pers.lonestar.chinesecolor.colorclass;
 
 import org.litepal.crud.LitePalSupport;
 
+/**
+ * 保存点击收藏的颜色，借助LitePal使用
+ * 每项须有对应的setter和getter
+ */
 public class FavoriteColor extends LitePalSupport {
     private String name;
     private String hex;
