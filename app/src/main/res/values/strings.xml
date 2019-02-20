@@ -19,4 +19,8 @@
     <string name="delete_message">是否删除全部收藏颜色？</string>
     <string name="delete_cancel">取消</string>
     <string name="delete_approve">确认</string>
+
+    <string name="menu_favorite">收藏</string>
+    <string name="menu_about">关于</string>
+    <string name="menu_delete">清除全部</string>
 </resources>

@@ -3,6 +3,7 @@ package pers.lonestar.chinesecolor.activities;
 import android.content.SharedPreferences;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
+import android.view.MenuItem;
 
 import androidx.appcompat.app.AppCompatActivity;
 import pers.lonestar.chinesecolor.R;
@@ -29,7 +30,19 @@ public class AboutActivity extends AppCompatActivity {
         String statusBarColor = sharedPreferences.getString("StatusBarColor", "#3A3A3A");
         if (getSupportActionBar() != null) {
             getSupportActionBar().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.parseColor(actionBarColor)));
+            getSupportActionBar().setTitle("关于");
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
             getWindow().setStatusBarColor(android.graphics.Color.parseColor(statusBarColor));
         }
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                finish();
+                break;
+        }
+        return true;
     }
 }

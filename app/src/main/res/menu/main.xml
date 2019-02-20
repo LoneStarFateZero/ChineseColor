@@ -4,10 +4,10 @@
     <item
         android:id="@+id/favorite"
         android:icon="@drawable/favorite"
-        android:title="收藏"
+        android:title="@string/menu_favorite"
         app:showAsAction="always" />
     <item
         android:id="@+id/about"
-        android:title="关于"
+        android:title="@string/menu_about"
         app:showAsAction="never" />
 </menu>

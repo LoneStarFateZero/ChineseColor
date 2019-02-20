@@ -56,6 +56,7 @@ public class FavoriteActivity extends AppCompatActivity implements MyDialogFragm
         if (getSupportActionBar() != null) {
             getSupportActionBar().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.parseColor(actionBarColor)));
             getSupportActionBar().setTitle("收藏");
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
             getWindow().setStatusBarColor(android.graphics.Color.parseColor(statusBarColor));
         }
         recyclerView.scrollToPosition(position);
@@ -93,6 +94,9 @@ public class FavoriteActivity extends AppCompatActivity implements MyDialogFragm
                 //自定义DialogFragment
                 MyDialogFragment dialogFragment = new MyDialogFragment();
                 dialogFragment.show(getSupportFragmentManager(), "MyDialog");
+                break;
+            case android.R.id.home:
+                finish();
                 break;
         }
         return true;
